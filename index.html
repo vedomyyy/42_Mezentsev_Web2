@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gus T.T. — говорящий унитаз</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <header class="site-header">
+            <h1>Gus T.T. <span>®</span></h1>
+            <p class="subhead">говорящий унитаз, одобренный Солом Гудманом</p>
+        </header>
+
+        <!-- Главная секция с унитазом -->
+        <section class="toilet-section">
+            <!-- Триггер для анимации -->
+            <div class="trigger-zone" id="triggerZone"></div>
+
+            <div class="scene">
+                <!-- УНИТАЗ -->
+                <img src="images/unitaz.png" 
+                     alt="унитаз" 
+                     class="toilet-img" 
+                     id="toiletImg">
+
+                <!-- КАКАШКА -->
+                <img src="images/poop.png" 
+                     alt="какашка" 
+                     class="poop-img" 
+                     id="poopImg">
+
+                <!-- БРЫЗГИ (теперь это картинка, как ты просил) -->
+                <img src="images/splash.png" 
+                     alt="брызги" 
+                     class="splash-img" 
+                     id="splashImg">
+
+                <!-- Диалоговое окно -->
+                <div class="speech-bubble" id="speechBubble">
+                    <div class="bubble-content">
+                        ООО ДАА! МОЛОДЕЦ!
+                        <span>какая большая, давай ещё!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ТОП-5 ПРИЧИН (flexbox) -->
+        <section class="reasons">
+            <h2>5 причин, почему этот унитаз — твой лучший друг</h2>
+            <ul class="reasons-flex">
+                <li class="reason-card"><strong>1</strong> Он хвалит тебя громче, чем мама</li>
+                <li class="reason-card"><strong>2</strong> Патент от самого Сола Гудмана (почти)</li>
+                <li class="reason-card"><strong>3</strong> Никакого стеснения — унитаз поддержит</li>
+                <li class="reason-card"><strong>4</strong> Дети снова полюбят ходить в туалет</li>
+                <li class="reason-card"><strong>5</strong> Работает даже без электричества (чудо!)</li>
+            </ul>
+        </section>
+
+        <!-- ОТЗЫВЫ (grid) -->
+        <section class="reviews">
+            <h2>Отзывы счастливых обладателей</h2>
+            <div class="reviews-grid">
+                <div class="review-item">
+                    <p>«Купил мужу на годовщину. Теперь мы проводим больше времени вместе… в ванной. Спасибо, Gus T.T.!»</p>
+                    <div class="review-author">— Елена, 42 года</div>
+                </div>
+                <div class="review-item">
+                    <p>«Сначала не понял, зачем это. Но когда унитаз сказал «оо даа», я поверил. Советую всем!»</p>
+                    <div class="review-author">— Дмитрий, пенсионер</div>
+                </div>
+                <div class="review-item">
+                    <p>«Ребёнок перестал бояться горшка. Говорит, унитаз — его друг. Я плачу от счастья.»</p>
+                    <div class="review-author">— молодая мама</div>
+                </div>
+                <div class="review-item">
+                    <p>«Использую в офисе. Коллеги завидуют, особенно когда слышат «какая большая, молодец».»</p>
+                    <div class="review-author">— бизнесмен Игорь</div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="side-ads">
+            <div class="ad-card">
+                <strong>-90%</strong> только сегодня! второй унитаз в подарок
+            </div>
+            <div class="ad-card">
+                <strong>⏳</strong> запатентовано Солом Гудманом, спешите!
+            </div>
+            <div class="ad-card">
+                <strong>💧</strong> вода из унитаза омолаживает (нет)
+            </div>
+        </aside>
+
+        <!-- Подвал -->
+        <footer class="site-footer">
+            <p>© 2025 Gus T.T. — не просто унитаз, а собеседник</p>
+        </footer>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
