@@ -114,57 +114,73 @@ body {
         view-timeline-axis: block;
     }
 
-    /* POOP FALL */
+    /* =========================
+       POOP (раньше + ниже старт)
+       ========================= */
 
     .poop-img {
-        animation: poopFall linear both;
+        animation-name: poopFall;
         animation-timeline: --toilet;
-        animation-range: entry 0% exit 70%;
+
+        /* ключ: анимация происходит пока секция ВХОДИТ в экран */
+        animation-range: entry 0% entry 60%;
+
+        animation-timing-function: linear;
+        animation-fill-mode: both;
+        will-change: transform, opacity, filter;
     }
 
     @keyframes poopFall {
-
         0% {
-            transform: translate(-50%, -250px) scale(1);
+            transform: translate(-50%, -40px) scale(1);
             opacity: 1;
             filter: blur(0);
         }
 
-        80% {
-            transform: translate(-50%, 140px) scale(1);
+        70% {
+            transform: translate(-50%, 150px) scale(1);
             opacity: 1;
+            filter: blur(0);
         }
 
-        95% {
-            transform: translate(-50%, 200px) scale(.9);
+        88% {
+            transform: translate(-50%, 205px) scale(0.95);
             opacity: 1;
+            filter: blur(1px);
         }
 
         100% {
-            transform: translate(-50%, 230px) scale(.2);
+            transform: translate(-50%, 230px) scale(0.2);
             opacity: 0;
             filter: blur(6px);
         }
     }
 
-    /* SPLASH */
+    /* =========================
+       SPLASH (сразу после удара)
+       ========================= */
 
     .splash-img {
-        animation: splashPop linear both;
+        animation-name: splashPop;
         animation-timeline: --toilet;
-        animation-range: exit 65% exit 85%;
+
+        /* начинается сразу после того, как какашка долетела */
+        animation-range: entry 45% entry 75%;
+
+        animation-timing-function: ease-out;
+        animation-fill-mode: both;
+        will-change: transform, opacity;
     }
 
     @keyframes splashPop {
-
         0% {
             opacity: 0;
-            transform: translateX(-50%) scale(.5);
+            transform: translateX(-50%) scale(0.2);
         }
 
-        40% {
+        35% {
             opacity: 1;
-            transform: translateX(-50%) scale(1.2);
+            transform: translateX(-50%) scale(1.15);
         }
 
         100% {
@@ -173,19 +189,25 @@ body {
         }
     }
 
-    /* SPEECH */
+    /* =========================
+       SPEECH (чуть позже брызг)
+       ========================= */
 
     .speech-bubble {
-        animation: bubbleShow linear both;
+        animation-name: bubbleShow;
         animation-timeline: --toilet;
-        animation-range: exit 80% exit 100%;
+
+        animation-range: entry 60% entry 95%;
+
+        animation-timing-function: ease-out;
+        animation-fill-mode: both;
+        will-change: transform, opacity;
     }
 
     @keyframes bubbleShow {
-
         0% {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(16px);
         }
 
         100% {
@@ -257,3 +279,4 @@ body {
     border-top: 2px solid #e0d6cc;
     text-align: center;
 }
+
