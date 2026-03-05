@@ -1,4 +1,4 @@
-/* === СБРОС И БАЗОВЫЕ НАСТРОЙКИ === */
+/* === RESET === */
 * {
     margin: 0;
     padding: 0;
@@ -7,20 +7,21 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f8f6f2;
+    background: #f8f6f2;
     color: #2c2c2c;
     line-height: 1.5;
 }
 
 .wrapper {
     max-width: 1200px;
-    margin: 0 auto;
+    margin: auto;
     padding: 20px;
-    background-color: #ffffffdd;
+    background: #ffffffdd;
     backdrop-filter: blur(2px);
 }
 
-/* === ШАПКА === */
+/* HEADER */
+
 .site-header {
     padding: 20px 0 30px;
     border-bottom: 2px solid #e0d6cc;
@@ -31,40 +32,25 @@ body {
     font-size: clamp(1.8rem, 5vw, 2.8rem);
     font-weight: 400;
     color: #7f5a4b;
-    letter-spacing: -0.5px;
 }
 
-.site-header h1 span {
-    font-weight: 300;
+.site-header span {
     color: #b38f7a;
 }
 
 .subhead {
     color: #a79e94;
-    font-size: 1rem;
     margin-top: 5px;
 }
 
-/* === СЕКЦИЯ С УНИТАЗОМ === */
-.toilet-section {
-    background-color: #f3eee9;
-    border-radius: 48px 48px 24px 24px;
-    padding: 20px 20px 40px 20px;
-    margin-bottom: 60px;
-    box-shadow: inset 0 -4px 0 #dcd3ca, 0 10px 20px rgba(0,0,0,0.02);
-    position: relative;
-}
+/* TOILET SECTION */
 
-/* Зона триггера */
-.trigger-zone {
-    position: absolute;
-    top: 380px;
-    left: 0;
-    width: 100%;
-    height: 20px;
-    background: transparent;
-    pointer-events: none;
-    scroll-margin-top: 100px;
+.toilet-section {
+    background: #f3eee9;
+    border-radius: 48px 48px 24px 24px;
+    padding: 20px 20px 40px;
+    margin-bottom: 60px;
+    position: relative;
 }
 
 .scene {
@@ -72,143 +58,147 @@ body {
     flex-direction: column;
     align-items: center;
     position: relative;
-    min-height: 500px;
+    min-height: 520px;
 }
 
 .toilet-img {
     width: 280px;
-    height: auto;
-    display: block;
     z-index: 5;
-    position: relative;
-    filter: drop-shadow(0 8px 12px rgba(0,0,0,0.1));
 }
 
-/* === КАКАШКА === */
+/* POOP */
+
 .poop-img {
     position: absolute;
-    top: 20px;  /* Начальная позиция - высоко над унитазом */
+    top: 0;
     left: 50%;
     transform: translateX(-50%);
     width: 70px;
-    height: auto;
     z-index: 20;
-    filter: blur(3px) drop-shadow(0 4px 2px #b09b89);
-    image-rendering: pixelated;
-    transition: none; /* JS управляет позицией */
-    will-change: top, filter, opacity; /* Для производительности */
 }
 
-/* === БРЫЗГИ === */
+/* SPLASH */
+
 .splash-img {
     position: absolute;
     left: 50%;
+    top: 200px;
     transform: translateX(-50%) scale(0);
-    top: 20px;
-    width: 200px;  /* Увеличил */
-    height: auto;
-    z-index: 15;
+    width: 200px;
     opacity: 0;
-    display: none;
-    transition: opacity 0.2s ease-out, transform 0.2s ease-out;
-    pointer-events: none;
+    z-index: 10;
 }
 
-.splash-img.show {
-    display: block;
-    opacity: 0.9;
-    transform: translateX(-50%) scale(1.3);
-    animation: splashPulse 0.6s ease-in-out infinite;
-}
+/* SPEECH */
 
-@keyframes splashPulse {
-    0% { 
-        opacity: 0.8; 
-        transform: translateX(-50%) scale(1.2); 
-    }
-    50% { 
-        opacity: 1; 
-        transform: translateX(-50%) scale(1.6); 
-    }
-    100% { 
-        opacity: 0.8; 
-        transform: translateX(-50%) scale(1.2); 
-    }
-}
-
-/* === ДИАЛОГОВОЕ ОКНО === */
 .speech-bubble {
-    position: relative;
-    background: #ffffff;
-    border-radius: 32px 32px 32px 8px;
+    margin-top: 40px;
+    background: white;
     padding: 24px 32px;
-    max-width: 340px;
-    box-shadow: 0 10px 0 #d5c9bc, 0 20px 30px -10px rgba(0,0,0,0.15);
-    margin-top: 30px;
-    font-size: 1.8rem;
-    font-weight: 500;
-    color: #4a3b32;
+    border-radius: 30px;
+    max-width: 320px;
     text-align: center;
-    line-height: 1.2;
+    font-size: 1.7rem;
     opacity: 0;
     transform: translateY(20px);
-    border: 1px solid #e5dbd2;
-    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 
-/* Кончик диалогового окна - СВЕРХУ */
-.speech-bubble::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: 50px;
-    width: 0;
-    height: 0;
-    border: 20px solid transparent;
-    border-bottom-color: #ffffff;
-    border-top: 0;
+/* ========================= */
+/* SCROLL ANIMATION SYSTEM */
+/* ========================= */
+
+@supports (animation-timeline: view()) {
+
+    .toilet-section {
+        view-timeline-name: --toilet;
+        view-timeline-axis: block;
+    }
+
+    /* POOP FALL */
+
+    .poop-img {
+        animation: poopFall linear both;
+        animation-timeline: --toilet;
+        animation-range: entry 0% exit 70%;
+    }
+
+    @keyframes poopFall {
+
+        0% {
+            transform: translate(-50%, -250px) scale(1);
+            opacity: 1;
+            filter: blur(0);
+        }
+
+        80% {
+            transform: translate(-50%, 140px) scale(1);
+            opacity: 1;
+        }
+
+        95% {
+            transform: translate(-50%, 200px) scale(.9);
+            opacity: 1;
+        }
+
+        100% {
+            transform: translate(-50%, 230px) scale(.2);
+            opacity: 0;
+            filter: blur(6px);
+        }
+    }
+
+    /* SPLASH */
+
+    .splash-img {
+        animation: splashPop linear both;
+        animation-timeline: --toilet;
+        animation-range: exit 65% exit 85%;
+    }
+
+    @keyframes splashPop {
+
+        0% {
+            opacity: 0;
+            transform: translateX(-50%) scale(.5);
+        }
+
+        40% {
+            opacity: 1;
+            transform: translateX(-50%) scale(1.2);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(-50%) scale(1);
+        }
+    }
+
+    /* SPEECH */
+
+    .speech-bubble {
+        animation: bubbleShow linear both;
+        animation-timeline: --toilet;
+        animation-range: exit 80% exit 100%;
+    }
+
+    @keyframes bubbleShow {
+
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 }
 
-.speech-bubble.show {
-    opacity: 1;
-    transform: translateY(0);
-}
+/* REASONS */
 
-.bubble-content span {
-    font-size: 1rem;
-    display: block;
-    color: #ad8e7a;
-    margin-top: 8px;
-    font-weight: 400;
-}
-
-/* Подсказка для скролла */
-.scroll-hint {
-    text-align: center;
-    margin-top: 20px;
-    font-size: 0.9rem;
-    color: #a79e94;
-    background: #ede7e0;
-    padding: 8px 20px;
-    border-radius: 60px;
-    display: inline-block;
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-/* === ТОП-5 ПРИЧИН (FLEXBOX) === */
 .reasons {
-    margin: 80px 0 60px;
-}
-
-.reasons h2 {
-    font-size: 2rem;
-    font-weight: 350;
-    color: #5f4e44;
-    margin-bottom: 40px;
-    border-left: 6px solid #cbad93;
-    padding-left: 20px;
+    margin: 80px 0;
 }
 
 .reasons-flex {
@@ -221,38 +211,14 @@ body {
 .reason-card {
     flex: 1 1 260px;
     background: #fbf9f7;
-    border: 1px solid #ece2d9;
-    border-radius: 32px;
-    padding: 32px 24px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-    transition: all 0.2s;
-    color: #3a2f29;
+    padding: 30px;
+    border-radius: 30px;
 }
 
-.reason-card:hover {
-    box-shadow: 0 8px 24px rgba(0,0,0,0.04);
-    background: white;
-}
+/* REVIEWS */
 
-.reason-card strong {
-    font-size: 2rem;
-    color: #b38f7a;
-    display: block;
-    margin-bottom: 12px;
-}
-
-/* === ОТЗЫВЫ (GRID) === */
 .reviews {
     margin: 80px 0;
-}
-
-.reviews h2 {
-    font-size: 2rem;
-    font-weight: 350;
-    color: #5f4e44;
-    margin-bottom: 40px;
-    border-left: 6px solid #cbad93;
-    padding-left: 20px;
 }
 
 .reviews-grid {
@@ -262,160 +228,32 @@ body {
 }
 
 .review-item {
-    background: #ffffff;
+    background: white;
+    padding: 24px;
     border-radius: 28px;
-    padding: 28px;
-    border: 1px solid #ece2d9;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
-.review-item p {
-    font-size: 1rem;
-    color: #3f332c;
-    margin-bottom: 20px;
-    line-height: 1.6;
-}
+/* ADS */
 
-.review-author {
-    font-weight: 500;
-    color: #b38f7a;
-    text-align: right;
-    border-top: 1px dashed #ddd2c8;
-    padding-top: 16px;
-    font-size: 0.95rem;
-}
-
-/* === БОКОВАЯ РЕКЛАМА (GRID) === */
 .side-ads {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
-    margin: 60px 0 30px;
+    margin: 60px 0;
 }
 
 .ad-card {
     background: #f0eae4;
+    padding: 20px;
     border-radius: 24px;
-    padding: 20px 16px;
     text-align: center;
-    border: 1px solid #d9cdc2;
-    font-size: 0.95rem;
-    color: #4f4139;
 }
 
-.ad-card strong {
-    display: block;
-    font-size: 1.4rem;
-    color: #896b59;
-    margin-bottom: 8px;
-}
+/* FOOTER */
 
-/* === ПОДВАЛ === */
 .site-footer {
-    margin-top: 80px;
-    padding: 32px 0 24px;
+    margin-top: 60px;
+    padding-top: 20px;
     border-top: 2px solid #e0d6cc;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    color: #a79e94;
-    font-size: 0.9rem;
-}
-
-/* === МЕДИА-ЗАПРОСЫ === */
-@media screen and (max-width: 640px) {
-    .toilet-img { width: 220px; }
-    
-    .poop-img { 
-        width: 60px; 
-        top: 50px; 
-    }
-    
-    .splash-img {
-        width: 140px;
-        bottom: 60px;
-    }
-    
-    .speech-bubble { 
-        font-size: 1.4rem; 
-        padding: 18px 22px; 
-        max-width: 280px;
-    }
-    
-    .side-ads { 
-        grid-template-columns: 1fr; 
-        gap: 16px; 
-    }
-    
-    .site-footer { 
-        flex-direction: column; 
-        gap: 16px; 
-        text-align: center; 
-    }
-    
-    .trigger-zone { 
-        top: 320px; 
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .wrapper { 
-        padding: 12px; 
-    }
-    
-    .toilet-section { 
-        padding: 15px 12px 30px; 
-    }
-    
-    .reasons h2, .reviews h2 { 
-        font-size: 1.6rem; 
-    }
-    
-    .reason-card { 
-        padding: 24px 18px; 
-    }
-    
-    .trigger-zone { 
-        top: 280px; 
-    }
-    
-    .splash-img {
-        width: 120px;
-        bottom: 50px;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    .toilet-img { 
-        width: 180px; 
-    }
-    
-    .poop-img { 
-        width: 50px; 
-        top: 60px; 
-    }
-    
-    .speech-bubble { 
-        font-size: 1.2rem; 
-        padding: 14px 18px;
-        max-width: 240px;
-    }
-    
-    .trigger-zone { 
-        top: 240px; 
-    }
-    
-    .splash-img {
-        width: 100px;
-        bottom: 40px;
-    }
-}
-
-/* Для очень больших экранов */
-@media screen and (min-width: 1400px) {
-    .splash-img {
-        width: 220px;
-        bottom: 100px;
-    }
+    text-align: center;
 }
